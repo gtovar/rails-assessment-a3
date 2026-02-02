@@ -2,6 +2,7 @@
 
 - API Reference: `API_REFERENCE.md`
 - Architecture: `ARCHITECTURE.md`
+- Decisions: `DECISIONS.md`
 - Testing: `TESTING.md`
 - Deployment: `DEPLOYMENT.md`
 - Workflow: `workflow.md`
