@@ -54,8 +54,7 @@ These depend on how the app is configured:
 Local deploy via `act` succeeded, with these warnings from Heroku:
 
 - Puma 5.6.4 is below Heroku's recommended 7.0.3+.
-- Ruby 3.1.0 is EOL; consider upgrading to 3.1.7 or 3.3.x.
-- No Procfile detected (default web server is used).
+- Ruby 3.1.0 is EOL; consider upgrading to 3.1.7 or 3.3.x (assessment requires 3.1.0).
 - "Detecting rails configuration failed" warning (did not block deploy).
 
 ## 8) Procfile
