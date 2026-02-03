@@ -60,6 +60,17 @@ RSpec.describe 'Invoices API', type: :request do
     end
   end
 
+  describe 'GET /api/v1/invoices/:id' do
+    it 'shows an invoice' do
+      invoice = create(:invoice)
+      get "/api/v1/invoices/#{invoice.id}", headers: headers
+
+      expect(response).to have_http_status(:ok)
+      body = JSON.parse(response.body)
+      expect(body.dig('data', 'id')).to eq(invoice.id)
+    end
+  end
+
   describe 'PATCH /api/v1/invoices/:id' do
     it 'updates an invoice' do
       invoice = create(:invoice)

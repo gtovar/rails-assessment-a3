@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :invoices, only: %i[index create update destroy]
+      resources :invoices, only: %i[index create show update destroy]
     end
   end
 end

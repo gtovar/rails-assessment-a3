@@ -40,6 +40,11 @@ module Api
         end
       end
 
+      def show
+        invoice = Invoice.find(params[:id])
+        render json: { data: InvoiceSerializer.call(invoice) }
+      end
+
       def update
         invoice = Invoice.find(params[:id])
 
