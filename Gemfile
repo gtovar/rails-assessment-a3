@@ -24,6 +24,10 @@ gem 'puma', '~> 5.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# API docs (Swagger UI + OpenAPI endpoint)
+gem 'rswag-api'
+gem 'rswag-ui'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
@@ -36,6 +40,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'rspec-rails'
+  gem 'rswag-specs'
   gem 'rubocop-performance', require: false
   gem 'rubocop-rspec', require: false
   gem 'shoulda-matchers', '~> 4.0'

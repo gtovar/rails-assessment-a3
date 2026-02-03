@@ -60,8 +60,11 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    addressable (2.8.8)
+      public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.2)
     awesome_print (1.9.2)
+    bigdecimal (3.3.1)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -89,6 +92,9 @@ GEM
       concurrent-ruby (~> 1.0)
     io-wait (0.2.1)
     json (2.6.2)
+    json-schema (5.2.2)
+      addressable (~> 2.8)
+      bigdecimal (~> 3.1)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -126,6 +132,7 @@ GEM
     parser (3.1.2.1)
       ast (~> 2.4.1)
     pg (1.4.2)
+    public_suffix (6.0.2)
     puma (5.6.4)
       nio4r (~> 2.0)
     racc (1.6.0)
@@ -182,6 +189,17 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
+    rswag-api (2.17.0)
+      activesupport (>= 5.2, < 8.2)
+      railties (>= 5.2, < 8.2)
+    rswag-specs (2.17.0)
+      activesupport (>= 5.2, < 8.2)
+      json-schema (>= 2.2, < 7.0)
+      railties (>= 5.2, < 8.2)
+      rspec-core (>= 2.14)
+    rswag-ui (2.17.0)
+      actionpack (>= 5.2, < 8.2)
+      railties (>= 5.2, < 8.2)
     rubocop (1.33.0)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -251,6 +269,9 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 6.1.6, >= 6.1.6.1)
   rspec-rails
+  rswag-api
+  rswag-specs
+  rswag-ui
   rubocop-performance
   rubocop-rails
   rubocop-rspec
