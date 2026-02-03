@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Invoice < ApplicationRecord
   enum status: {
-    active: "active",
-    cancelled: "cancelled",
-    paid: "paid"
+    active: 'active',
+    cancelled: 'cancelled',
+    paid: 'paid'
   }
 
   validates :invoice_uuid, presence: true, uniqueness: true

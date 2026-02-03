@@ -19,3 +19,24 @@ Model-level validations only.
 
 **Status**  
 Accepted.
+
+## D2 — CI/CD strategy (simple GitHub Actions + Heroku)
+
+**Decision**  
+Use GitHub Actions for CI (tests + rubocop) on `develop`/`main` and Heroku deploy on `main`.
+
+**Rationale**  
+- Keeps pipeline simple and aligned with assessment scope.
+- CI enforces basic quality gates before merge.
+- CD only from `main` matches the stable branch rule.
+
+**Scope**  
+CI: `.github/workflows/ci.yml`  
+CD: `.github/workflows/deploy.yml`
+
+**Implications**  
+- Requires Heroku secrets in GitHub Actions.
+- CI will fail if tests or rubocop fail.
+
+**Status**  
+Accepted.
