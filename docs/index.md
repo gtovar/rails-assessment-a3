@@ -1,6 +1,7 @@
 # Documentation Index
 
 - API Reference: `API_REFERENCE.md`
+- Swagger OpenAPI Spec: `../swagger/v1/swagger.yaml`
 - Architecture: `ARCHITECTURE.md`
 - Decisions: `DECISIONS.md`
 - Testing: `TESTING.md`

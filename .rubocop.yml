@@ -27,6 +27,9 @@ Rails/Output:
 
 RSpec/AnyInstance:
   Enabled: false
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - spec/integration/**/*.rb
 RSpec/ExampleLength:
   Enabled: false
 RSpec/FilePath:
@@ -43,6 +46,12 @@ RSpec/NamedSubject:
   Enabled: false
 RSpec/NestedGroups:
   Max: 6
+RSpec/ScatteredSetup:
+  Exclude:
+    - spec/integration/**/*.rb
+RSpec/VariableName:
+  Exclude:
+    - spec/integration/**/*.rb
 
 Style/BlockDelimiters:
   Exclude:
