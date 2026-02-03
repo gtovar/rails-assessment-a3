@@ -24,7 +24,7 @@ RSpec.describe 'Invoices API', type: :request do
             type: :object,
             properties: {
               invoice_uuid: { type: :string, format: :uuid },
-              status: { type: :string },
+              status: { type: :string, enum: %w[active cancelled paid], example: 'active' },
               emitter_name: { type: :string },
               emitter_rfc: { type: :string },
               receiver_name: { type: :string },
@@ -151,7 +151,7 @@ RSpec.describe 'Invoices API', type: :request do
           invoice: {
             type: :object,
             properties: {
-              status: { type: :string }
+              status: { type: :string, enum: %w[active cancelled paid], example: 'cancelled' }
             }
           }
         }

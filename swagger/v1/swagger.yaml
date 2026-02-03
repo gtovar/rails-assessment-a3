@@ -43,6 +43,11 @@ paths:
                       format: uuid
                     status:
                       type: string
+                      enum:
+                      - active
+                      - cancelled
+                      - paid
+                      example: active
                     emitter_name:
                       type: string
                     emitter_rfc:
@@ -159,6 +164,11 @@ paths:
                   properties:
                     status:
                       type: string
+                      enum:
+                      - active
+                      - cancelled
+                      - paid
+                      example: cancelled
     delete:
       summary: Delete invoice
       tags:
