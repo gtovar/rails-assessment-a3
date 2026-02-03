@@ -8,7 +8,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:8080', 'https://zip-plan-builder.vercel.app'
+    origins 'http://localhost:8080', 'https://zip-plan-builder.vercel.app', 'https://app.invoices.gilbertotovar.com'
 
     resource '*',
       headers: :any,
