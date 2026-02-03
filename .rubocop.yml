@@ -7,6 +7,15 @@ Metrics/AbcSize:
   Max: 25
   Exclude:
     - 'spec/support/**/*.rb'
+    - 'lib/tasks/generate_invoice_xml.rake'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'lib/tasks/generate_invoice_xml.rake'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/tasks/generate_invoice_xml.rake'
 
 Rails/HasAndBelongsToMany:
   Enabled: false
@@ -53,3 +62,6 @@ AllCops:
     - db/schema.rb
     - db/migrate/**
     - config/initializers/**
+    - log/**
+    - tmp/**
+    - vendor/bundle/**
