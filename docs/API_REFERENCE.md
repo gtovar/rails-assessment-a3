@@ -18,6 +18,10 @@ List invoices with filters:
 - amount_min
 - amount_max
 - page, per_page
+Notes:
+- invalid filter values return 422 with error messages
+- status must be one of the allowed enum values
+- amount_min/amount_max must be numeric
 
 ## GET /api/v1/invoices/:id
 Get invoice details.
@@ -43,4 +47,4 @@ Render QR image (image/png).
 ## Error responses
 - 401 Unauthorized: missing/invalid token
 - 400 Bad Request: missing required params
-- 422 Unprocessable Entity: validation errors
+- 422 Unprocessable Entity: validation errors (including invalid filters)

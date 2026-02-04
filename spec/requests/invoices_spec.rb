@@ -58,6 +58,73 @@ RSpec.describe 'Invoices API', type: :request do
       body = JSON.parse(response.body)
       expect(body['meta']).to include('page', 'per_page', 'total')
     end
+
+    it 'filters by status' do
+      create(:invoice, status: 'active')
+      paid = create(:invoice, status: 'paid')
+
+      get '/api/v1/invoices', params: { status: 'paid' }, headers: headers
+
+      expect(response).to have_http_status(:ok)
+      ids = JSON.parse(response.body)['data'].map { |item| item['id'] }
+      expect(ids).to contain_exactly(paid.id)
+    end
+
+    it 'filters by emitter_rfc' do
+      create(:invoice, emitter_rfc: 'AAA010101AAA')
+      target = create(:invoice, emitter_rfc: 'BBB010101BBB')
+
+      get '/api/v1/invoices', params: { emitter_rfc: 'BBB010101BBB' }, headers: headers
+
+      expect(response).to have_http_status(:ok)
+      ids = JSON.parse(response.body)['data'].map { |item| item['id'] }
+      expect(ids).to contain_exactly(target.id)
+    end
+
+    it 'filters by receiver_rfc' do
+      create(:invoice, receiver_rfc: 'CCC010101CCC')
+      target = create(:invoice, receiver_rfc: 'DDD010101DDD')
+
+      get '/api/v1/invoices', params: { receiver_rfc: 'DDD010101DDD' }, headers: headers
+
+      expect(response).to have_http_status(:ok)
+      ids = JSON.parse(response.body)['data'].map { |item| item['id'] }
+      expect(ids).to contain_exactly(target.id)
+    end
+
+    it 'filters by amount range' do
+      create(:invoice, amount_cents: 10_000)
+      target = create(:invoice, amount_cents: 50_000)
+      create(:invoice, amount_cents: 200_000)
+
+      get '/api/v1/invoices',
+          params: { amount_min: 20_000, amount_max: 100_000 },
+          headers: headers
+
+      expect(response).to have_http_status(:ok)
+      ids = JSON.parse(response.body)['data'].map { |item| item['id'] }
+      expect(ids).to contain_exactly(target.id)
+    end
+
+    it 'allows combined filters' do
+      create(:invoice, status: 'paid', emitter_rfc: 'AAA010101AAA')
+      target = create(:invoice, status: 'active', emitter_rfc: 'BBB010101BBB')
+
+      get '/api/v1/invoices',
+          params: { status: 'active', emitter_rfc: 'BBB010101BBB' },
+          headers: headers
+
+      expect(response).to have_http_status(:ok)
+      ids = JSON.parse(response.body)['data'].map { |item| item['id'] }
+      expect(ids).to contain_exactly(target.id)
+    end
+
+    it 'returns 422 for invalid status filter' do
+      get '/api/v1/invoices', params: { status: 'invalid' }, headers: headers
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(JSON.parse(response.body)['errors']).to be_present
+    end
   end
 
   describe 'GET /api/v1/invoices/:id' do
