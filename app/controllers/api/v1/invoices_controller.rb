@@ -19,15 +19,14 @@ module Api
       ].freeze
 
       def index
-        scope = Invoice.all
-        total = scope.count
-        page, per_page = pagination_params
-        scope = paginate(scope)
+        status = params[:status]
+        return invalid_status_response if invalid_status?(status)
 
-        render json: {
-          data: serialize_collection(scope),
-          meta: { page:, per_page:, total: }
-        }
+        amount_min, amount_max = parsed_amount_range
+        return invalid_amount_response if invalid_amount?(amount_min, amount_max)
+
+        scope = filtered_scope(status, amount_min, amount_max)
+        render json: paginated_payload(scope)
       end
 
       def create
@@ -65,6 +64,56 @@ module Api
 
       def invoice_params
         params.require(:invoice).permit(*PERMITTED_PARAMS)
+      end
+
+      def filtered_scope(status, amount_min, amount_max)
+        Invoice.all
+               .by_status(status)
+               .by_emitter_rfc(params[:emitter_rfc])
+               .by_receiver_rfc(params[:receiver_rfc])
+               .by_amount_range(amount_min, amount_max)
+      end
+
+      def invalid_status?(status)
+        status.present? && !Invoice.statuses.key?(status)
+      end
+
+      def invalid_status_response
+        render json: { errors: ['Status is invalid'] }, status: :unprocessable_entity
+      end
+
+      def parsed_amount_range
+        [
+          parse_integer_param(params[:amount_min]),
+          parse_integer_param(params[:amount_max])
+        ]
+      end
+
+      def paginated_payload(scope)
+        total = scope.count
+        page, per_page = pagination_params
+        scope = paginate(scope)
+
+        {
+          data: serialize_collection(scope),
+          meta: { page:, per_page:, total: }
+        }
+      end
+
+      def parse_integer_param(value)
+        return nil if value.blank?
+
+        Integer(value)
+      rescue ArgumentError, TypeError
+        :invalid
+      end
+
+      def invalid_amount?(amount_min, amount_max)
+        amount_min == :invalid || amount_max == :invalid
+      end
+
+      def invalid_amount_response
+        render json: { errors: ['Amount range is invalid'] }, status: :unprocessable_entity
       end
     end
   end
