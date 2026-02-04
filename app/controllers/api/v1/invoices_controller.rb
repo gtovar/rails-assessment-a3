@@ -25,7 +25,7 @@ module Api
         amount_min, amount_max = parsed_amount_range
         return invalid_amount_response if invalid_amount?(amount_min, amount_max)
 
-        scope = filtered_scope(status, amount_min, amount_max)
+        scope = filtered_scope(amount_min, amount_max)
         render json: paginated_payload(scope)
       end
 
@@ -66,9 +66,9 @@ module Api
         params.require(:invoice).permit(*PERMITTED_PARAMS)
       end
 
-      def filtered_scope(status, amount_min, amount_max)
+      def filtered_scope(amount_min, amount_max)
         Invoice.all
-               .by_status(status)
+               .by_status(params[:status])
                .by_emitter_rfc(params[:emitter_rfc])
                .by_receiver_rfc(params[:receiver_rfc])
                .by_amount_range(amount_min, amount_max)
