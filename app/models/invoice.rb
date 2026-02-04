@@ -7,9 +7,9 @@ class Invoice < ApplicationRecord
     paid: 'paid'
   }
 
-  scope :by_status, ->(status) { where(status:) if status.present? }
-  scope :by_emitter_rfc, ->(rfc) { where(emitter_rfc: rfc) if rfc.present? }
-  scope :by_receiver_rfc, ->(rfc) { where(receiver_rfc: rfc) if rfc.present? }
+  scope :by_status, ->(status) { status.present? ? where(status:) : all }
+  scope :by_emitter_rfc, ->(rfc) { rfc.present? ? where(emitter_rfc: rfc) : all }
+  scope :by_receiver_rfc, ->(rfc) { rfc.present? ? where(receiver_rfc: rfc) : all }
   scope :by_amount_range, ->(min, max) { amount_range_scope(min, max) }
 
   validates :invoice_uuid, presence: true, uniqueness: true
