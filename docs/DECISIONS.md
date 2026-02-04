@@ -40,3 +40,22 @@ CD: `.github/workflows/deploy.yml`
 
 **Status**  
 Accepted.
+
+## D3 — Invalid invoice filters return 422
+
+**Decision**  
+Return 422 with validation errors when invoice list filters are invalid (e.g., unknown `status`, non-numeric `amount_min`/`amount_max`).
+
+**Rationale**  
+- Keeps the API contract explicit and predictable.
+- Prevents 500s caused by invalid filter inputs.
+
+**Scope**  
+`GET /api/v1/invoices` filter parameters.
+
+**Implications**  
+- Clients receive actionable errors for bad filters.
+- No change to the core list endpoint or response shape.
+
+**Status**  
+Accepted.
