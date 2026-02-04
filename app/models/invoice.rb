@@ -24,7 +24,7 @@ class Invoice < ApplicationRecord
   validates :cfdi_digital_stamp, presence: true
 
   def self.amount_range_scope(min, max)
-    scope = all
+    scope = self
     scope = scope.where('amount_cents >= ?', min) if min.present?
     scope = scope.where('amount_cents <= ?', max) if max.present?
     scope
