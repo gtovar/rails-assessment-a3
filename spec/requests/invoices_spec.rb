@@ -125,7 +125,6 @@ RSpec.describe 'Invoices API', type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
       expect(JSON.parse(response.body)['errors']).to be_present
     end
-
     it 'returns 422 for invalid amount filter' do
       get '/api/v1/invoices', params: { amount_min: 'abc' }, headers: headers
 
